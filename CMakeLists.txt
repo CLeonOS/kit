@@ -118,6 +118,7 @@ set(_runtime_sources
     "${CLEONOS_KIT_RUNTIME_DIR}/syscall.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/stdio.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_string.c"
+    "${CLEONOS_KIT_RUNTIME_DIR}/libc_strings.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_stdlib.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_ctype.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/dlfcn.c"
