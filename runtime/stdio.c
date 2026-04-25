@@ -477,7 +477,7 @@ static int clio_vformat(struct clio_sink *sink, const char *fmt, va_list args) {
                 }
             } else if (spec == 'p') {
                 const void *ptr = va_arg(args, const void *);
-                unsigned long long value = (unsigned long long)(usize)ptr;
+                unsigned long long value = (unsigned long long)(unsigned long)ptr;
                 clio_size_t digits_len;
                 clio_size_t leading_zeros = 0UL;
                 clio_size_t core_len;
