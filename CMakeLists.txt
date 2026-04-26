@@ -139,6 +139,8 @@ set(CLEONOS_KIT_CFLAGS
     -ffreestanding
     -fno-stack-protector
     -fno-builtin
+    -ffunction-sections
+    -fdata-sections
     -Wall
     -Wextra
     -m64
@@ -153,6 +155,7 @@ if(CLEONOS_KIT_ENABLE_WERROR)
 endif()
 
 set(CLEONOS_KIT_LDFLAGS "" CACHE STRING "Extra linker flags (semicolon separated)")
+list(APPEND CLEONOS_KIT_LDFLAGS --gc-sections)
 
 function(cleonos_compile_object SRC_PATH OUT_VAR)
     file(RELATIVE_PATH _rel "${CMAKE_SOURCE_DIR}" "${SRC_PATH}")
