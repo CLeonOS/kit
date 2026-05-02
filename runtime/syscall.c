@@ -16,6 +16,14 @@ u64 cleonos_sys_timer_ticks(void) {
     return cleonos_syscall(CLEONOS_SYSCALL_TIMER_TICKS, 0ULL, 0ULL, 0ULL);
 }
 
+u64 cleonos_sys_timer_hz(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_TIMER_HZ, 0ULL, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_time_ms(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_TIME_MS, 0ULL, 0ULL, 0ULL);
+}
+
 u64 cleonos_sys_task_count(void) {
     return cleonos_syscall(CLEONOS_SYSCALL_TASK_COUNT, 0ULL, 0ULL, 0ULL);
 }
@@ -209,6 +217,10 @@ u64 cleonos_sys_exit(u64 status) {
 
 u64 cleonos_sys_sleep_ticks(u64 ticks) {
     return cleonos_syscall(CLEONOS_SYSCALL_SLEEP_TICKS, ticks, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_sleep_ms(u64 ms) {
+    return cleonos_syscall(CLEONOS_SYSCALL_SLEEP_MS, ms, 0ULL, 0ULL);
 }
 
 u64 cleonos_sys_yield(void) {
@@ -460,6 +472,10 @@ u64 cleonos_sys_net_tcp_close(u64 poll_budget) {
     return cleonos_syscall(CLEONOS_SYSCALL_NET_TCP_CLOSE, poll_budget, 0ULL, 0ULL);
 }
 
+u64 cleonos_sys_net_tcp_last_error(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_NET_TCP_LAST_ERROR, 0ULL, 0ULL, 0ULL);
+}
+
 u64 cleonos_sys_mouse_state(cleonos_mouse_state *out_state) {
     return cleonos_syscall(CLEONOS_SYSCALL_MOUSE_STATE, (u64)out_state, 0ULL, 0ULL);
 }
@@ -514,6 +530,14 @@ u64 cleonos_sys_pty_open(void) {
 
 void *cleonos_sys_user_heap_alloc(u64 size) {
     return (void *)(usize)cleonos_syscall(CLEONOS_SYSCALL_USER_HEAP_ALLOC, size, 0ULL, 0ULL);
+}
+
+void *cleonos_sys_vm_alloc(u64 size, u64 flags) {
+    return (void *)(usize)cleonos_syscall(CLEONOS_SYSCALL_VM_ALLOC, size, flags, 0ULL);
+}
+
+u64 cleonos_sys_vm_free(void *ptr, u64 size) {
+    return cleonos_syscall(CLEONOS_SYSCALL_VM_FREE, (u64)(usize)ptr, size, 0ULL);
 }
 
 u64 cleonos_sys_driver_count(void) {

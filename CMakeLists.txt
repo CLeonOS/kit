@@ -121,6 +121,7 @@ set(_runtime_sources
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_strings.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_stdlib.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/libc_ctype.c"
+    "${CLEONOS_KIT_RUNTIME_DIR}/mman.c"
     "${CLEONOS_KIT_RUNTIME_DIR}/dlfcn.c"
 )
 
