@@ -424,6 +424,14 @@ u64 cleonos_sys_disk_write_sector(u64 lba, const void *sector_data) {
     return cleonos_syscall(CLEONOS_SYSCALL_DISK_WRITE_SECTOR, lba, (u64)sector_data, 0ULL);
 }
 
+u64 cleonos_sys_disk_fsck_fat32(u64 flags, cleonos_disk_fsck_result *out_result) {
+    return cleonos_syscall(CLEONOS_SYSCALL_DISK_FSCK_FAT32, flags, (u64)out_result, 0ULL);
+}
+
+u64 cleonos_sys_sysinfo(cleonos_sysinfo *out_info) {
+    return cleonos_syscall(CLEONOS_SYSCALL_SYSINFO, (u64)out_info, (u64)sizeof(cleonos_sysinfo), 0ULL);
+}
+
 u64 cleonos_sys_net_available(void) {
     return cleonos_syscall(CLEONOS_SYSCALL_NET_AVAILABLE, 0ULL, 0ULL, 0ULL);
 }
@@ -538,6 +546,61 @@ void *cleonos_sys_vm_alloc(u64 size, u64 flags) {
 
 u64 cleonos_sys_vm_free(void *ptr, u64 size) {
     return cleonos_syscall(CLEONOS_SYSCALL_VM_FREE, (u64)(usize)ptr, size, 0ULL);
+}
+
+u64 cleonos_sys_user_current(cleonos_user_info *out_info) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_CURRENT, (u64)(usize)out_info, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_login(const char *name, const char *password, cleonos_user_info *out_info) {
+    cleonos_user_login_req req;
+
+    req.name_ptr = (u64)(usize)name;
+    req.password_ptr = (u64)(usize)password;
+    req.out_info_ptr = (u64)(usize)out_info;
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_LOGIN, (u64)(usize)&req, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_logout(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_LOGOUT, 0ULL, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_count(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_COUNT, 0ULL, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_at(u64 index, cleonos_user_info *out_info) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_AT, index, (u64)(usize)out_info, 0ULL);
+}
+
+u64 cleonos_sys_user_add(const char *name, const char *password, u64 role) {
+    cleonos_user_add_req req;
+
+    req.name_ptr = (u64)(usize)name;
+    req.password_ptr = (u64)(usize)password;
+    req.role = role;
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_ADD, (u64)(usize)&req, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_passwd(const char *name, const char *old_password, const char *new_password) {
+    cleonos_user_passwd_req req;
+
+    req.name_ptr = (u64)(usize)name;
+    req.old_password_ptr = (u64)(usize)old_password;
+    req.new_password_ptr = (u64)(usize)new_password;
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_PASSWD, (u64)(usize)&req, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_set_role(const char *name, u64 role) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_SET_ROLE, (u64)(usize)name, role, 0ULL);
+}
+
+u64 cleonos_sys_user_remove(const char *name) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_REMOVE, (u64)(usize)name, 0ULL, 0ULL);
+}
+
+u64 cleonos_sys_user_is_admin(void) {
+    return cleonos_syscall(CLEONOS_SYSCALL_USER_IS_ADMIN, 0ULL, 0ULL, 0ULL);
 }
 
 u64 cleonos_sys_driver_count(void) {
